@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        title MYFORUM | #{thms[0].categoryId.title}
+        link(rel='stylesheet' href='../../css/bootstrap.min.css')
+        link(rel="shortcut icon", href="../../favicon.ico")
+        link(rel='stylesheet' href='../../fonts/fonts.css')
+        link(rel='stylesheet' href='../../css/themesList.css')
+    body
+        nav.navbar.navbar-expand-lg.navbar-light.bg-light
+            a.navbar-brand.logo(href='/home')
+                span.logo-icon
+                    img(src='../../img/logo-icon.svg' alt='icon')
+                span.logo-text
+                span MY
+                | FORUM
+            button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
+                span.navbar-toggler-icon
+        
+            #navbarSupportedContent.collapse.navbar-collapse
+                ol.breadcrumb
+                    li.breadcrumb-item
+                        a(href="/forum") Categories
+                    li.breadcrumb-item.active(aria-current='page') #{thms[0].categoryId.title}
+                ul.navbar-nav.mr-auto.navul
+                    li.nav-item
+                        a.nav-link(href='/home') Home
+                    li.nav-item.active
+                        a.nav-link(href='/forum') Forum
+                    li.nav-item
+                        a.nav-link(href='#') About
+                if !sdata
+                    form.form-inline.my-2.my-lg-0(name="authentfication")
+                        input.form-control.mr-sm-2(type='login' placeholder='Login' name='login')
+                        input.form-control.mr-sm-2(type='password' placeholder='Password' name='pass')
+                        button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Log In
+                        button.btn.btn-outline-primary.my-2.my-sm-0.btn-signin(type='button') Sign In
+                else
+                    a.nav-link(href="#") #{sdata}
+
+        h1.display-4.text-center #{thms[0].categoryId.title}
+
+        each thm in thms
+            a.mya(href='./' + thm._id)
+                .card.mb-3.mycard
+                    .row.no-gutters
+                        .col-md-2
+                            img.card-img(src="../../img/avatars/avatar_fushiya.png" alt="...")
+                        .col-md-10
+                            .card-body.text-center
+                                h5.card-title.overflow-hidden #{thm.name}
+                                p.card-text.overflow-hidden.contentTHM #{thm.content}
+                                p.card-text
+                                    small.text-muted #{thm.create_date}
+
+
+
+        footer.py-1.bg-dark.text-white-50.fixed-bottom
+            .container.text-center
+                small Developer by Max Koroliov
+
+        script(src='../../js/jquery-3.3.1.min.js')
+        script(src='../../js/popper.min.js')
+        script(src='../../js/bootstrap.min.js')
+        

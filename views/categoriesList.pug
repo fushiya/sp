@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+html
+    head
+        meta(charset='UTF-8')
+        title MYFORUM | Categories
+        link(rel='stylesheet' href='css/bootstrap.min.css')
+        link(rel='stylesheet' href='css/categoriesList.css')
+        link(rel="shortcut icon", href="favicon.ico")
+        link(rel='stylesheet' href='fonts/fonts.css')
+    body
+        nav.navbar.navbar-expand-lg.navbar-light.bg-light
+            a.navbar-brand.logo(href='/home')
+                span.logo-icon
+                    img(src='img/logo-icon.svg' alt='icon')
+                span.logo-text
+                span MY
+                | FORUM
+            button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
+                span.navbar-toggler-icon
+        
+            #navbarSupportedContent.collapse.navbar-collapse
+                ol.breadcrumb
+                    li.breadcrumb-item.active(aria-current='page') Categories
+                ul.navbar-nav.mr-auto.navul
+                    li.nav-item
+                        a.nav-link(href='/home') Home
+                    li.nav-item.active
+                        a.nav-link(href='#') Forum
+                    li.nav-item
+                        a.nav-link(href='#') About
+                if !sdata
+                    form.form-inline.my-2.my-lg-0(name="authentfication")
+                        input.form-control.mr-sm-2(type='login' placeholder='Login' name='login')
+                        input.form-control.mr-sm-2(type='password' placeholder='Password' name='pass')
+                        button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Log In
+                        button.btn.btn-outline-primary.my-2.my-sm-0.btn-signin(type='button') Sign In
+                else
+                    a.nav-link(href="#") #{sdata}
+
+        section
+            .container
+                h1.text-center.display-4 Categories
+                -var categories = categ
+                    .row.justify-content-center
+                        each cat,index in categories
+                            .col.col-4.card
+                                a(href='/forum/c/' + cat._id)
+                                    img.card-img-top(src='img/logo-'+ cat.title +'.png' alt='...')
+                                    .card-body
+                                        h5.card-title #{cat.title}
+
+        footer.py-1.bg-dark.text-white-50.fixed-bottom
+            .container.text-center
+                small Developer by Max Koroliov
+
+    script(src='js/jquery-3.3.1.min.js')
+    script(src='js/popper.min.js')
+    script(src='js/bootstrap.min.js')
+    script.
+        document.querySelectorAll('.card').forEach((e) => {
+            e.onmousemove = (el) => {
+                e.style.transform = 'scale(1.03)';
+            }
+            e.onmouseout = (el) => {
+                e.style.transform = 'scale(1)';
+            }
+        });
+
+        $('form[name="authentfication"]').submit((e) => {
+            e.preventDefault();
+            console.log($('form[name="authentfication"]')[0]);
+            let login = $('form[name="authentfication"]')[0].elements['login'].value;
+            let pass = $('form[name="authentfication"]')[0].elements['pass'].value;
+            if (login && pass) {
+                $.ajax({
+                    url: "post/auth",
+                    contentType: "application/json",
+                    method: "POST",
+                    data: JSON.stringify({
+                        ulogin: login,
+                        upass: pass
+                    }),
+                    success: (resdata) => {
+                        document.querySelector('form[name="authentfication"]').outerHTML = '<a class="nav-link" href="#">'+resdata+'</a>';
+                    }
+                })
+            }
+        });
