@@ -11,8 +11,11 @@ exports.setUsers = (req, res) => {
 
 exports.auth = (req, res) => {
     if (!req.body) return res.status(400);
-    console.log(req.body.ulogin);
-    res.send(req.body.ulogin);
+        Models.users.findOne({login: req.body.ulogin, pass: req.body.upass}, (er, usr) => {
+            req.session.auth = true;
+            req.session.user = usr;
+            res.send(usr);
+        });
 }
 
 // exports.checkAuth = (req, res, next) => {

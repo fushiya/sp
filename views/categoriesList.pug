@@ -35,7 +35,7 @@ html
                         button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Log In
                         button.btn.btn-outline-primary.my-2.my-sm-0.btn-signin(type='button') Sign In
                 else
-                    a.nav-link(href="#") #{sdata}
+                    a.nav-link(href="#") #{sdata.login}
 
         section
             .container
@@ -86,3 +86,5 @@ html
                 })
             }
         });
+
+        document.querySelector('h1').textContent = document.querySelector('h1').textContent[0].toUpperCase() + document.querySelector('h1').textContent.slice(1);

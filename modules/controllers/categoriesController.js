@@ -10,7 +10,7 @@ exports.setCategories = (req, res) => {
 }
 
 exports.category = (req, res) => {
-    if (req.session.auth) {var ses = req.session.auth} else {var ses = false;};
+    if (req.session.auth) {var ses = req.session.user} else {var ses = false;};
     Models.categories.find({}, (er, ctg) => {
         res.render('categoriesList.pug', {
             categ: ctg,

@@ -23,7 +23,7 @@ html(lang="en")
             #navbarSupportedContent.collapse.navbar-collapse
                 ol.breadcrumb
                     li.breadcrumb-item
-                        a(href="/forum") Categories
+                        a(href="/forum") categories
                     li.breadcrumb-item.active(aria-current='page') #{thms[0].categoryId.title}
                 ul.navbar-nav.mr-auto.navul
                     li.nav-item
@@ -36,25 +36,27 @@ html(lang="en")
                     form.form-inline.my-2.my-lg-0(name="authentfication")
                         input.form-control.mr-sm-2(type='login' placeholder='Login' name='login')
                         input.form-control.mr-sm-2(type='password' placeholder='Password' name='pass')
-                        button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Log In
+                        button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Sign On
                         button.btn.btn-outline-primary.my-2.my-sm-0.btn-signin(type='button') Sign In
                 else
-                    a.nav-link(href="#") #{sdata}
+                    a.nav-link(href="#") #{sdata.login}
 
         h1.display-4.text-center #{thms[0].categoryId.title}
 
-        each thm in thms
-            a.mya(href='./' + thm._id)
-                .card.mb-3.mycard
-                    .row.no-gutters
-                        .col-md-2
-                            img.card-img(src="../../img/avatars/avatar_fushiya.png" alt="...")
-                        .col-md-10
-                            .card-body.text-center
-                                h5.card-title.overflow-hidden #{thm.name}
-                                p.card-text.overflow-hidden.contentTHM #{thm.content}
-                                p.card-text
-                                    small.text-muted #{thm.create_date}
+        .container
+            .row
+                each thm in thms
+                    .card.mb-3.mycard
+                        a.mya(href='./' + thm.categoryId._id + '/t/' + thm._id)
+                            .row.no-gutters
+                                .col-md-2
+                                    img.card-img(src="../../img/avatars/" + thm.create_userId.avatar alt="...")
+                                .col-md-10
+                                    .card-body.text-center
+                                        h5.card-title.overflow-hidden #{thm.name}
+                                        p.card-text.overflow-hidden.contentTHM #{thm.content}
+                                        p.card-text
+                                            small.text-muted #{thm.create_date}
 
 
 
@@ -65,4 +67,29 @@ html(lang="en")
         script(src='../../js/jquery-3.3.1.min.js')
         script(src='../../js/popper.min.js')
         script(src='../../js/bootstrap.min.js')
+        script.
+            document.querySelectorAll('ol li').forEach((e, i, arr) => e.firstChild.textContent = e.textContent[0].toUpperCase() + e.textContent.slice(1));
+            document.querySelector('h1').textContent = document.querySelector('h1').textContent[0].toUpperCase() + document.querySelector('h1').textContent.slice(1);
         
+            $('form[name="authentfication"]').submit((e) => {
+                e.preventDefault();
+                console.log($('form[name="authentfication"]')[0]);
+                let login = $('form[name="authentfication"]')[0].elements['login'].value;
+                let pass = $('form[name="authentfication"]')[0].elements['pass'].value;
+                console.log(login);
+                if (login && pass) {
+                    $.ajax({
+                        url: "../../post/auth",
+                        contentType: "application/json",
+                        method: "POST",
+                        data: JSON.stringify({
+                            ulogin: login,
+                            upass: pass
+                        }),
+                        success: (resdata) => {
+                            console.log(resdata);
+                            document.querySelector('form[name="authentfication"]').outerHTML = '<a class="nav-link" href="#">'+resdata+'</a>';
+                        }
+                    })
+                }
+            });

@@ -7,11 +7,13 @@ exports.setTheme = (req, res) => {
 }
 
 exports.getTheme = (req, res) => {
+    if (req.session.auth) {var ses = req.session.user} else {var ses = false;};
     const category = req.params.category;
-    Models.themes.find({categoryId: category}).populate('categoryId').exec((er, thm) => {
+    Models.themes.find({categoryId: category}).populate([{path: 'categoryId'}, {path: 'create_userId'}]).exec((er, thm) => {
         if (er) console.log(er);
         res.render('themesList.pug', {
-            thms: thm
+            thms: thm,
+            sdata: ses
         });
     });
 }
