@@ -14,6 +14,10 @@ const usersSchema = new Schema({
         type: Date,
         required: true
     },
+    email: {
+        type: String,
+        required: true
+    },
     register_date: {
         type: Date,
         required: true

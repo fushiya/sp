@@ -20,3 +20,17 @@ exports.getMessege = (req, res) => {
         }); 
     });
 }
+
+exports.addMessege = (req, res) => {
+    if (req.session.auth) {var ses = req.session.user} else {var ses = false;};
+    if (!req.body) return res.send(400);
+    const newMessege = new Models.messenges({
+        content: req.body.content_message,
+        themeId: req.body.themeId_message,
+        create_userId: req.session.user._id,
+        create_date: new Date()
+    });
+
+    newMessege.save();
+    res.send([newMessege, req.session.user]);
+}

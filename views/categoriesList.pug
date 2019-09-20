@@ -35,7 +35,7 @@ html
                         button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Log In
                         button.btn.btn-outline-primary.my-2.my-sm-0.btn-signin(type='button') Sign In
                 else
-                    a.nav-link(href="#") #{sdata.login}
+                    a.nav-link(href="/users/cabinet") #{sdata.login}
 
         section
             .container
@@ -81,7 +81,7 @@ html
                         upass: pass
                     }),
                     success: (resdata) => {
-                        document.querySelector('form[name="authentfication"]').outerHTML = '<a class="nav-link" href="#">'+resdata+'</a>';
+                        document.querySelector('form[name="authentfication"]').outerHTML = '<a class="nav-link" href="/user/cabinet">'+resdata.login+'</a>';
                     }
                 })
             }

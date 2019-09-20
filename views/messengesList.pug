@@ -41,7 +41,7 @@ html(lang="en")
                         button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Sign On
                         button.btn.btn-outline-primary.my-2.my-sm-0.btn-signin(type='button') Sign In
                 else
-                    a.nav-link(href="#") #{sdata.login}
+                    a.nav-link(href="/users/cabinet") #{sdata.login}
         .container
             .row.firstRow
                 .card.mb-3.mycard
@@ -55,7 +55,7 @@ html(lang="en")
                                 h5.card-title.overflow-hidden #{thm.name}
                                 p.card-text.overflow-hidden.contentTHM.text-justify #{thm.content}
                                 p.card-text
-                                    small.text-muted #{thm.create_date}
+                                    small.text-muted #{new Date(thm.create_date).toLocaleDateString()} | #{new Date(thm.create_date).toLocaleTimeString()}
             hr    
 
             each msg in msgs
@@ -70,17 +70,20 @@ html(lang="en")
                                 .card-body.text-center.align-middle
                                     p.card-text.overflow-hidden.contentTHM.text-justify #{msg.content}
                                     p.card-text
-                                        small.text-muted #{msg.create_date}
+                                        small.text-muted #{new Date(msg.create_date).toLocaleDateString()} | #{new Date(msg.create_date).toLocaleTimeString()}
+            .row.new-messege
             hr
 
             .row
                 .card.mb-3.mycard
                     .row
-                        .col-lg-12
-                            .card-body.text-center.align-middle
-                                textarea.form-control(id="exampleFormControlTextarea1" rows="3")
-                                p.card-text
-                                    button.btn.btn-outline-success.text-btn(type="button") Send
+                        form(name="create-messege" style="width: 100%;")
+                            .col-lg-12
+                                .form-group-row.card-body.text-center.align-middle
+                                    textarea.form-control(id="exampleFormControlTextarea1" name="content_message" rows="5")
+                                    input.form-control(type="text" name="themeId_message" disabled style="display: none;" value=thm._id)
+                                    .form-group-row.card-text
+                                        input.form-control.btn.btn-outline-success.text-btn(type="submit" value="Send")
 
 
         footer.py-1.bg-dark.text-white-50.fixed-bottom
@@ -93,10 +96,8 @@ html(lang="en")
         script.
             $('form[name="authentfication"]').submit((e) => {
                 e.preventDefault();
-                console.log($('form[name="authentfication"]')[0]);
                 let login = $('form[name="authentfication"]')[0].elements['login'].value;
                 let pass = $('form[name="authentfication"]')[0].elements['pass'].value;
-                console.log(login);
                 if (login && pass) {
                     $.ajax({
                         url: "../../../../post/auth",
@@ -107,7 +108,50 @@ html(lang="en")
                             upass: pass
                         }),
                         success: (resdata) => {
-                            document.querySelector('form[name="authentfication"]').outerHTML = '<a class="nav-link" href="#">'+resdata+'</a>';
+                            document.querySelector('form[name="authentfication"]').outerHTML = '<a class="nav-link" href="#">'+resdata.login+'</a>';
+                        }
+                    })
+                }
+            });
+
+            $('form[name="create-messege"]').submit((e) => {
+                e.preventDefault();
+                let ucontent_message = $('form[name="create-messege"]')[0][0].value;
+                let uthemeId_message = $('form[name="create-messege"]')[0][1].value;
+                if (ucontent_message && uthemeId_message) {
+                    $.ajax({
+                        url: "../../../../post/addmessege",
+                        contentType: "application/json",
+                        method: "POST",
+                        data: JSON.stringify({
+                            content_message: ucontent_message,
+                            themeId_message: uthemeId_message
+                        }),
+                        success: (resdata) => {
+                            document.querySelector('.new-messege').outerHTML = `
+                                <div class="row">
+                                    <div class="card mb-3 mycard">
+                                        <div class="row">
+                                            <div class="col-lg-1 userAvatar">
+                                                <img class="card-img" src="../../../../img/avatars/${resdata[1].avatar}" alt="user-avatar">
+                                                <a class="aplogin" href="#">
+                                                    <p class="plogin">${resdata[1].login}</p>
+                                                </a>
+                                            </div>
+                                            <div class="col-lg-11">
+                                                <div class="card-body text-center align-middle">
+                                                    <p class="card-text overflow-hidden contentTHM text-justify">${resdata[0].content}</p>
+                                                    <p class="card-text">
+                                                        <small class="text-muted">${new Date(resdata[0].create_date).toLocaleDateString()} | ${new Date(resdata[0].create_date).toLocaleTimeString()}}</small>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row new-messege"></div>
+                            `;
+                            document.querySelector('textarea').value = '';
                         }
                     })
                 }

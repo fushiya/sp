@@ -1,0 +1,50 @@
+section {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-image: url('/img/home.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;
+    font-family: sans-serif;
+}
+
+section div {
+    position: absolute;
+    z-index: 5;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+h1 {
+    font-size: 350%;
+}
+
+section::after {
+    content: "";
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.4);
+    position: absolute;
+    z-index: 1;
+    margin: 0;
+    padding: 0;
+}
+
+.btns {
+    position: relative;
+    margin-top: 10%;
+    text-align: center;
+}
+
+.btns a {
+    margin: 1vh;
+}
+
+.btns a button {
+    width: 200px;
+    border-radius: .50rem;
+    font-size: 150%;
+}

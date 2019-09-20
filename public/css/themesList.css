@@ -1,5 +1,6 @@
 body {
 	background-color: #efefef;
+	padding-bottom: 5vh;
 }
 
 .logo-text {
@@ -75,4 +76,12 @@ h1 {
 .mya:hover {
 	text-decoration: none;
 	color: rgb(92, 92, 92);
+}
+
+.my-nav-btn {
+	margin: auto!important;
+}
+
+.card {
+	width: 100%;
 }

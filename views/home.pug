@@ -5,6 +5,23 @@ html(lang="en")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         meta(http-equiv="X-UA-Compatible", content="ie=edge")
         title MYFORUM
+        link(rel='stylesheet' href='css/bootstrap.min.css')
+        link(rel='stylesheet' href='css/home.css')
+        link(rel="shortcut icon", href="favicon.ico")
+        link(rel='stylesheet' href='fonts/fonts.css')
+
     body
-        a(href='/forum')
-            button Go to MYFORUM
+        section.main
+            .mytitle
+                h1 Практична робота
+                    br
+                    span Корольова Максима
+                .btns
+                    a(href="/forum")
+                        button.btn.btn-outline-warning.mybtnF Форум
+                    a(href="/about")
+                        button.btn.btn-outline-warning.mybtnA Документацiя
+
+        script(src='js/jquery-3.3.1.min.js')
+        script(src='js/popper.min.js')
+        script(src='js/bootstrap.min.js')

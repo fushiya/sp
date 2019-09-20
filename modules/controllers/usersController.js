@@ -18,8 +18,36 @@ exports.auth = (req, res) => {
         });
 }
 
-// exports.checkAuth = (req, res, next) => {
-//     if (req.session.auth) {
-//         req.session.auth.status = true;
-//     }
-// }
+exports.cabinet = (req, res) => {
+    if (req.session.auth) {var ses = req.session.user} else {var ses = false;};
+    Models.users.findOne({_id: ses._id}, (er, usr) => {
+        res.render('cabinet.pug', {
+            usr: usr,
+            sdata: ses
+        });
+    });
+}
+
+exports.signout = (req, res) => {
+    req.session.destroy((er) => {
+        if (er) return console.log(er);
+        res.redirect('/forum');
+    });
+}
+
+exports.putUsers = (req, res) => {
+    if (!req.body) return res.send(400);
+    const upUser = req.body;
+    // upUser.avatar = req.file;
+    console.log(Object.keys(req));
+    console.log(req.files);
+    console.log(req.file);
+    // for (let key in upUser) {
+    //     if (upUser[key] == "") {
+    //         upUser[key] = req.session.user[key];
+    //     }
+    // }
+    Models.users.findOne({_id: req.session.user._id}, (er, nusr) => {
+        res.send([nusr, upUser]);
+    });
+}

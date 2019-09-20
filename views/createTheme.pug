@@ -4,16 +4,16 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         meta(http-equiv="X-UA-Compatible", content="ie=edge")
-        title MYFORUM | #{thms[0].categoryId.title}
-        link(rel='stylesheet' href='../../css/bootstrap.min.css')
-        link(rel="shortcut icon", href="../../favicon.ico")
-        link(rel='stylesheet' href='../../fonts/fonts.css')
-        link(rel='stylesheet' href='../../css/themesList.css')
+        title Document
+        link(rel='stylesheet' href='../../../css/bootstrap.min.css')
+        link(rel="shortcut icon", href="../../../favicon.ico")
+        link(rel='stylesheet' href='../../../fonts/fonts.css')
+        link(rel='stylesheet' href='../../../css/createTheme.css')
     body
         nav.navbar.navbar-expand-lg.navbar-light.bg-light
             a.navbar-brand.logo(href='/home')
                 span.logo-icon
-                    img(src='../../img/logo-icon.svg' alt='icon')
+                    img(src='../../../img/logo-icon.svg' alt='icon')
                 span.logo-text
                 span MY
                 | FORUM
@@ -24,7 +24,9 @@ html(lang="en")
                 ol.breadcrumb
                     li.breadcrumb-item
                         a(href="/forum") categories
-                    li.breadcrumb-item.active(aria-current='page') #{thms[0].categoryId.title}
+                    li.breadcrumb-item
+                        a(href="/forum") #{ctg.title}
+                    li.breadcrumb-item.active(aria-current='page') create theme
                 ul.navbar-nav.mr-auto.navul
                     li.nav-item
                         a.nav-link(href='/home') Home
@@ -32,8 +34,6 @@ html(lang="en")
                         a.nav-link(href='/forum') Forum
                     li.nav-item
                         a.nav-link(href='#') About
-                a.nav-link.my-nav-btn(href="/forum/c/" + thms[0].categoryId._id + "/create")
-                    button.btn.btn-primary Create theme
                 if !sdata
                     form.form-inline.my-2.my-lg-0(name="authentfication")
                         input.form-control.mr-sm-2(type='login' placeholder='Login' name='login')
@@ -43,54 +43,51 @@ html(lang="en")
                 else
                     a.nav-link(href="/users/cabinet") #{sdata.login}
 
-        h1.display-4.text-center #{thms[0].categoryId.title}
+        h1.display-4.text-center #{ctg.title}
 
         .container
-            .row
-                each thm in thms
-                    .card.mb-3.mycard
-                        a.mya(href='./' + thm.categoryId._id + '/t/' + thm._id)
-                            .row.no-gutters
-                                .col-md-2
-                                    img.card-img(src="../../img/avatars/" + thm.create_userId.avatar alt="...")
-                                .col-md-10
-                                    .card-body.text-center
-                                        h5.card-title.overflow-hidden #{thm.name}
-                                        p.card-text.overflow-hidden.contentTHM #{thm.content}
-                                        p.card-text
-                                            small.text-muted #{new Date(thm.create_date).toLocaleDateString()} #{new Date(thm.create_date).toLocaleTimeString()}
-
-
+            .row.row-form
+                form.create-theme(name="create-theme")
+                    .form-group.row
+                        label.col-lg-2.col-form-label(for="staticEmail") Title theme
+                        .col-lg-10
+                            input.form-control(type="text" id="inputPassword" name="utitle_theme" placeholder="Key words" required)
+                            input.form-control(type="text" name="ucategoryId_theme" disabled style="display: none;" value=ctg._id)
+                    .form-group.row
+                        label.col-lg-2.col-form-label(for="inputPassword") Your ask
+                        .col-lg-10
+                            textarea.form-control(id="exampleFormControlTextarea1" rows="15" name="ucontent_theme" required)
+                    .form-group-row.text-right
+                        button.btn.btn-success.my-btn-send(type="submit") Send
 
         footer.py-1.bg-dark.text-white-50.fixed-bottom
             .container.text-center
                 small Developer by Max Koroliov
 
-        script(src='../../js/jquery-3.3.1.min.js')
-        script(src='../../js/popper.min.js')
-        script(src='../../js/bootstrap.min.js')
+        script(src='../../../js/jquery-3.3.1.min.js')
+        script(src='../../../js/popper.min.js')
+        script(src='../../../js/bootstrap.min.js')
         script.
             document.querySelectorAll('ol li').forEach((e, i, arr) => (e.firstChild.textContent.length > 20) ? e.firstChild.textContent = e.textContent[0].toUpperCase() + e.textContent.slice(1, 20) + '...' : e.firstChild.textContent = e.textContent[0].toUpperCase() + e.textContent.slice(1));
             document.querySelector('h1').textContent = document.querySelector('h1').textContent[0].toUpperCase() + document.querySelector('h1').textContent.slice(1);
-        
-            $('form[name="authentfication"]').submit((e) => {
+
+            $('form[name="create-theme"]').submit((e) => {
                 e.preventDefault();
-                console.log($('form[name="authentfication"]')[0]);
-                let login = $('form[name="authentfication"]')[0].elements['login'].value;
-                let pass = $('form[name="authentfication"]')[0].elements['pass'].value;
-                console.log(login);
-                if (login && pass) {
+                let title_theme = $('form[name="create-theme"]')[0].elements['utitle_theme'].value;
+                let content_theme = $('form[name="create-theme"]')[0].elements['ucontent_theme'].value;
+                let categoryId_theme = $('form[name="create-theme"]')[0].elements['ucategoryId_theme'].value;
+                if (title_theme && content_theme) {
                     $.ajax({
-                        url: "../../post/auth",
+                        url: "../../../post/addtheme",
                         contentType: "application/json",
                         method: "POST",
                         data: JSON.stringify({
-                            ulogin: login,
-                            upass: pass
+                            title_theme: title_theme,
+                            content_theme: content_theme,
+                            categoryId_theme: categoryId_theme
                         }),
                         success: (resdata) => {
-                            console.log(resdata);
-                            document.querySelector('form[name="authentfication"]').outerHTML = '<a class="nav-link" href="#">'+resdata.login+'</a>';
+                            window.location.href = resdata;
                         }
                     })
                 }

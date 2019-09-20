@@ -45,58 +45,24 @@ body {
 	margin-left: 6px;
 }
 
-/* ============================== */
+/*///////////////////////////*/
 
-.card-body {
-    width: 100%;
-    padding: 5px;
+
+.my-input-file {
+    /* visibility: hidden; */
+}
+  
+.my-label-file {
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 7rem;
 }
 
-.row {
-    margin: 0;
+.my-label-file img {
+    width: 150px;
+    height: 150px;
 }
 
-.plogin {
-    margin-bottom: 0;
-    font-size: 94%;
-    text-align: center;
-    color: #212529;
-}
-
-.aplogin {
-    text-decoration: none;
-}
-
-.aplogin:hover {
-    text-decoration: none;
-    color: #6c757d;
-}
-
-.card-img {
-    border-radius: 10rem;
-	padding-top: 5px;
-	width: 62px;
-	height: 67px;
-}
-
-.userAvatar {
-    height: fit-content;
-    margin: auto;
-}
-
-.firstRow {
+.mycol {
     margin-top: 5vh;
-}
-
-.card {
-    min-width: 100%;
-}
-
-textarea {
-    resize: none;
-}
-
-.text-btn {
-    width: 100%;
-    margin: 5px 0;
 }

@@ -13,7 +13,6 @@ const Routers = require('./modules/routers/all_routers');
 app.set('views engine', 'pug');
 
 app.use(express.static(__dirname + "/public"));
-app.use(multer({dest:"public/img/avatars"}).single("filedata"));
 
 mongoose.connect("mongodb://localhost:27017/forum", { useNewUrlParser: true }, function(err){
     if(err) return console.log(err);
@@ -32,7 +31,8 @@ app.use(session({
     })
 }));
 
+app.use(multer({dest:"/public/img/avatars"}).single("filedata"));
+app.use('/users', Routers.users);
 app.use('/post', Routers.post);
 app.use('/forum', Routers.forum);
-app.use('/users', Routers.users);
 app.use('/', Routers.index);

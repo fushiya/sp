@@ -12,7 +12,7 @@ body {
 }
 
 .logo-text span {
-	font-weight: 1000;
+    font-weight: 1000;
 }
 
 .logo-icon {
@@ -45,58 +45,27 @@ body {
 	margin-left: 6px;
 }
 
-/* ============================== */
+/* ================================= */
 
-.card-body {
-    width: 100%;
-    padding: 5px;
+.create-theme {
+    width: -webkit-fill-available;
 }
 
-.row {
-    margin: 0;
+h1 {
+    margin: 3rem 0;
 }
 
-.plogin {
-    margin-bottom: 0;
-    font-size: 94%;
-    text-align: center;
-    color: #212529;
-}
-
-.aplogin {
-    text-decoration: none;
-}
-
-.aplogin:hover {
-    text-decoration: none;
-    color: #6c757d;
-}
-
-.card-img {
-    border-radius: 10rem;
-	padding-top: 5px;
-	width: 62px;
-	height: 67px;
-}
-
-.userAvatar {
-    height: fit-content;
-    margin: auto;
-}
-
-.firstRow {
-    margin-top: 5vh;
-}
-
-.card {
-    min-width: 100%;
+.row-form {
+    padding: 1rem;
+    border-radius: .25rem;
+    border: 1px solid #ced4da;
+    background: #fff;
 }
 
 textarea {
     resize: none;
 }
 
-.text-btn {
-    width: 100%;
-    margin: 5px 0;
+.my-btn-send {
+    width: 13rem;
 }
