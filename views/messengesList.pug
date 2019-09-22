@@ -83,7 +83,10 @@ html(lang="en")
                                     textarea.form-control(id="exampleFormControlTextarea1" name="content_message" rows="5")
                                     input.form-control(type="text" name="themeId_message" disabled style="display: none;" value=thm._id)
                                     .form-group-row.card-text
-                                        input.form-control.btn.btn-outline-success.text-btn(type="submit" value="Send")
+                                        if !sdata
+                                            input.form-control.btn.btn-outline-success.text-btn(data-toggle="autent" title="Please, sign in" data-content="Sign..." type="button" value="Send")
+                                        else
+                                            input.form-control.btn.btn-outline-success.text-btn(type="submit" value="Send")
 
 
         footer.py-1.bg-dark.text-white-50.fixed-bottom
@@ -108,7 +111,12 @@ html(lang="en")
                             upass: pass
                         }),
                         success: (resdata) => {
-                            document.querySelector('form[name="authentfication"]').outerHTML = '<a class="nav-link" href="#">'+resdata.login+'</a>';
+                            document.querySelector('form[name="authentfication"]').outerHTML = '<a class="nav-link" href="/users/cabinet">'+resdata.login+'</a>';
+                            document.querySelectorAll('[data-toggle]').forEach((ell) => {
+                                ell.removeAttribute('data-toggle');
+                                ell.removeAttribute('data-content');
+                                ell.removeAttribute('title');
+                            });
                         }
                     })
                 }
@@ -156,5 +164,7 @@ html(lang="en")
                     })
                 }
             });
+
+            //- $( () => $('[data-toggle="autent"]').popover() );
 
             document.querySelectorAll('ol li').forEach((e, i, arr) => (e.firstChild.textContent.length > 20) ? e.firstChild.textContent = e.textContent[0].toUpperCase() + e.textContent.slice(1, 20) + '...' : e.firstChild.textContent = e.textContent[0].toUpperCase() + e.textContent.slice(1));

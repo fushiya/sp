@@ -49,14 +49,17 @@ html(lang="en")
             .row
                 each thm in thms
                     .card.mb-3.mycard
+                        form(name="del-thm")
+                            button.close.myclose(type="submit" aria-label="Close")
+                                span(aria-hidden="true") &times;  
                         a.mya(href='./' + thm.categoryId._id + '/t/' + thm._id)
                             .row.no-gutters
                                 .col-md-2
                                     img.card-img(src="../../img/avatars/" + thm.create_userId.avatar alt="...")
                                 .col-md-10
                                     .card-body.text-center
-                                        h5.card-title.overflow-hidden #{thm.name}
-                                        p.card-text.overflow-hidden.contentTHM #{thm.content}
+                                        h5.card-title.overflow-hidden #{thm.name}  
+                                        p.card-text.overflow-hidden #{thm.content}
                                         p.card-text
                                             small.text-muted #{new Date(thm.create_date).toLocaleDateString()} #{new Date(thm.create_date).toLocaleTimeString()}
 
@@ -95,3 +98,26 @@ html(lang="en")
                     })
                 }
             });
+
+            //- $('form[name="del-thm"]').each((i, elem) => {
+            //-     elem.submit((e) => {
+            //-         console.log(i);
+            //-         var out = elem.parentElement;
+            //-         var title_thm = out.children[1].children[0].children[1].children[0].children[0].textContent;
+            //-         var content_thm = out.children[1].children[0].children[1].children[0].children[1].textContent;
+            //-         console.log(title_thm);
+            //-         console.log(content_thm);
+            //-         $.ajax({
+            //-             url: '../../../post/delthm',
+            //-             contentType: 'application/json',
+            //-             method: 'POST',
+            //-             data: JSON.stringify({
+            //-                 stitle_thm: title_thm,
+            //-                 scontent_thm: content_thm
+            //-             }),
+            //-             success: (resdata) => {
+            //-                 console.log(resdata);
+            //-             }
+            //-         });
+            //-     });
+            //- });

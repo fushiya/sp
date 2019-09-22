@@ -12,7 +12,7 @@ exports.getTheme = (req, res) => {
     Models.themes.find({categoryId: category}).populate([{path: 'categoryId'}, {path: 'create_userId'}]).exec((er, thm) => {
         if (er) console.log(er);
         res.render('themesList.pug', {
-            thms: thm,
+            thms: thm.reverse(),
             sdata: ses
         });
     });
@@ -39,4 +39,13 @@ exports.addTheme = (req, res) => {
     });
     newTheme.save();
     res.send(`/forum/c/${req.body.categoryId_theme}`);
+}
+
+exports.delThemes = (req, res) => {
+    if (req.session.auth) {var ses = req.session.user} else {var ses = false;};
+    if (!req.body) return res.send(400);
+    console.log(req.body);
+    console.log(rreq.session.user);
+    Models.themes.deleteOne({name: req.body.stitle_thm, create_user: req.session.user._id}, (err) => {if (err) return console.log(err); res.send(true);});
+    
 }

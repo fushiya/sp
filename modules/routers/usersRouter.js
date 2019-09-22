@@ -5,5 +5,6 @@ const Controllers = require('../controllers/all_controllers');
 usersRouter.get('/getuser', Controllers.users.getUsers);
 usersRouter.get('/cabinet', Controllers.users.cabinet);
 usersRouter.get('/signout', Controllers.users.signout);
+usersRouter.get('/signon', Controllers.users.signon);
 
 module.exports = usersRouter;

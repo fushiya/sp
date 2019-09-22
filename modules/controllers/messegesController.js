@@ -34,3 +34,9 @@ exports.addMessege = (req, res) => {
     newMessege.save();
     res.send([newMessege, req.session.user]);
 }
+
+exports.delMesseges = (req, res) => {
+    if (req.session.auth) {var ses = req.session.user} else {var ses = false;};
+    if (!req.body) return res.send(400);
+    Models.messenges.deleteOne({name: req.body.name_msg, content: req.body.content_msg}, (err) => {if (err) return console.log(err);});
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        title Document
+        link(rel='stylesheet' href='../css/bootstrap.min.css')
+        link(rel='stylesheet' href='../css/signon.css')
+        link(rel="shortcut icon", href="../favicon.ico")
+        link(rel='stylesheet' href='../fonts/fonts.css')
+    body
+        .container.mycontainer
+            form(name="signin")
+                .form-row
+                    .form-group.col-md-6
+                        label(for='first_name') First Name
+                        input#inputEmail4.form-control(type='text' name="first_name" required placeholder='Max')
+                    .form-group.col-md-6
+                        label(for='last_name') Last Name
+                        input#inputPassword4.form-control(type='text' name="last_name" required placeholder='Koroliov')
+                .form-group
+                    label(for='email') Email
+                    input#inputAddress2.form-control(type='email' name="email" required placeholder='example@gmail.com')
+                .form-row
+                    .form-group.col-md-5
+                        label(for='login') Login
+                        input#inputCity.form-control(type='text' name="login" required)
+                    .form-group.col-md-5
+                        label(for='pass') Password
+                        input#inputState.form-control(type="pass" name="pass" placeholder="Password" required)
+                    .form-group.col-md-2
+                        label(for='birth_date') Birth Date
+                        input#inputZip.form-control(type='date' name="birth_date" required)
+                button.btn.btn-primary(type='submit') Sign in
+
+
+        script(src='../js/jquery-3.3.1.min.js')
+        script(src='../js/popper.min.js')
+        script(src='../js/bootstrap.min.js')
+        script.
+            $('form[name="signin"]').submit((e) => {
+                e.preventDefault();
+                let newUsr = {
+                    first_name: $('form[name="signin"]')[0].elements['first_name'].value,
+                    last_name: $('form[name="signin"]')[0].elements['last_name'].value,
+                    email: $('form[name="signin"]')[0].elements['email'].value,
+                    login: $('form[name="signin"]')[0].elements['login'].value,
+                    pass: $('form[name="signin"]')[0].elements['pass'].value,
+                    birth_date: $('form[name="signin"]')[0].elements['birth_date'].value
+                }
+                $.ajax({
+                    url: "../post/register",
+                    contentType: "application/json",
+                    method: "POST",
+                    data: JSON.stringify({
+                        newUsr: newUsr
+                    }),
+                    success: (resdata) => {
+                        window.location.href = '/forum';
+                    }
+                });
+            });

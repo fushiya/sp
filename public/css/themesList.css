@@ -56,8 +56,8 @@ h1 {
 }
 
 .card-img {
-    width: initial;
-    max-height: 13vh;
+    width: 82%;
+    max-height: 100%;
     border-radius: 10rem;
     border: none;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
@@ -84,4 +84,10 @@ h1 {
 
 .card {
 	width: 100%;
+}
+
+.myclose {
+	position: absolute;
+	z-index: 10;
+	left: 98%;
 }

@@ -44,22 +44,18 @@ html(lang="en")
                 .col-lg-12.mycol
                     form(enctype="multipart/form-data" name="edit-user")
                         .form-group
-                            input.my-input-file(type="file" name="filedata" id="filedata")
-                            label.my-label-file.text-center(for="filedata")
-                                img(src="../img/avatars/" + usr.avatar, alt="")
-                        .form-group
                             label(for="ufirst_name") First name
-                            input.form-control(type="text" name="ufirst_name" placeholder="Max")
+                            input.form-control(type="text" name="ufirst_name" placeholder=sdata.first_name)
                             label(for="ulast_name") Last name
-                            input.form-control(type="text" name="ulast_name" placeholder="Koroliov")
+                            input.form-control(type="text" name="ulast_name" placeholder=sdata.last_name)
                             label(for="ubirth_date") Birth date
-                            input.form-control(type="text" name="ubirth_date" placeholder="06/05/2000")
+                            input.form-control(type="text" name="ubirth_date" placeholder=sdata.birth_date)
                             label(for="uemail") Email
-                            input.form-control(type="email" name="uemail" placeholder="fushiya.mephit@gmail.com")
+                            input.form-control(type="email" name="uemail" placeholder=sdata.email)
                             label(for="u1pass") Password
-                            input.form-control(type="pass" name="u1pass" placeholder="Pass")
-                            label(for="u2pass") Confirm password
-                            input.form-control(type="pass" name="u2pass" placeholder="Confirm pass")
+                            input.form-control(type="pass" name="u1pass" placeholder="********")
+                            //- label(for="u2pass") Confirm password
+                            //- input.form-control(type="pass" name="u2pass" placeholder="Confirm pass")
                         .form-group
                             input.btn.btn-success(type="submit" value="Send")
                             a(href="/users/signout")
