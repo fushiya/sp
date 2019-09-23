@@ -14,7 +14,7 @@ app.set('views engine', 'pug');
 
 app.use(express.static(__dirname + "/public"));
 
-mongoose.connect("mongodb://localhost:27017/forum", { useNewUrlParser: true }, function(err){
+mongoose.connect("mongodb://fushiya:admin21@ds125525.mlab.com:25525/heroku_cxgbvbzp", { useNewUrlParser: true }, function(err){
     if(err) return console.log(err);
     app.listen(port, function(){
         console.log("OK...");
@@ -27,7 +27,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     store: new mongoStore({ 
-      url: 'mongodb://localhost:27017/forum',
+      url: 'mongodb://fushiya:admin21@ds125525.mlab.com:25525/heroku_cxgbvbzp',
     })
 }));
 
