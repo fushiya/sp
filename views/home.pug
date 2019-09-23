@@ -19,9 +19,11 @@ html(lang="en")
                 .btns
                     a(href="/forum")
                         button.btn.btn-outline-warning.mybtnF Форум
-                    a(href="/about")
-                        button.btn.btn-outline-warning.mybtnA Документацiя
+                    a(href='/doc/description.pdf')
+                        button.btn.btn-outline-warning.mybtnA.doc Документацiя
 
         script(src='js/jquery-3.3.1.min.js')
         script(src='js/popper.min.js')
         script(src='js/bootstrap.min.js')
+        script.
+            //- document.querySelector('.doc').onclick = () => window.open('doc/description.pdf');
