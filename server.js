@@ -36,4 +36,5 @@ app.use(multer({dest:"/public/img/avatars"}).single("filedata"));
 app.use('/users', Routers.users);
 app.use('/post', Routers.post);
 app.use('/forum', Routers.forum);
+app.get('/favicon.ico', (req, res) => res.redirect('/'));
 app.use('/', Routers.index);
