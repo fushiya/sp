@@ -9,6 +9,7 @@ const pug = require('pug');
 const app = express();
 var port = process.env.PORT || 3000;
 const Routers = require('./modules/routers/all_routers');
+const host = process.env.HOST || 'localhost';
 
 app.set('views engine', 'pug');
 
@@ -16,7 +17,7 @@ app.use(express.static(__dirname + "/public"));
 
 mongoose.connect("mongodb://heroku_cxgbvbzp:jvdh5s76tninauh423kae60ku1@ds125525.mlab.com:25525/heroku_cxgbvbzp", { useNewUrlParser: true }, function(err){
     if(err) return console.log(err);
-    app.listen(port, function(){
+    app.listen(host, port, function(){
         console.log("OK...");
     });
 });
