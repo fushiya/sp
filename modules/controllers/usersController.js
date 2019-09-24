@@ -1,14 +1,6 @@
 const express = require('express');
 const Models = require('../models/all_models');
-const hash = (secret, key) => require('crypto').createHmac('sha1', secret).update(key).digest('hex');
-
-exports.getUsers = (req, res) => {
-    res.send('Controlles.users.getUsers');
-}
-
-exports.setUsers = (req, res) => {
-    res.send('Controllers.users.setUsers');
-}
+const hash = require('../adapterPass');
 
 exports.auth = (req, res) => {
     if (!req.body) return res.status(400);
@@ -73,4 +65,12 @@ exports.register = (req, res) => {
         res.send(true);
     });
     
+}
+
+exports.checkAdmin = (req, res, next) => {
+    try {
+        (req.session.user.role == "admin") ? next() : res.redirect('/forum');
+    } catch (ex) {
+        res.redirect('/forum');
+    }
 }
